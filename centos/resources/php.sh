@@ -32,8 +32,8 @@ mkdir -p /var/lib/php/session
 chmod -Rf 770 /var/lib/php/session
 
 #update the permissions
-find /var/www/fusionpbx -type d -exec chmod 770 {} \;
-find /var/www/fusionpbx -type f -exec chmod 664 {} \;
+find /var/www/nocroompbx -type d -exec chmod 770 {} \;
+find /var/www/nocroompbx -type f -exec chmod 664 {} \;
 
 #send a message
 verbose "php/nginx/php-fpm and permissions configured"
