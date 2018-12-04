@@ -10,7 +10,7 @@ cd "$(dirname "$0")"
 #database details
 database_host=127.0.0.1
 database_port=5432
-database_username=fusionpbx
+database_username=nocroompbx
 if [ .$database_password = .'random' ]; then
 	database_password=$(dd if=/dev/urandom bs=1 count=20 2>/dev/null | base64 | sed 's/[=\+//]//g')
 fi
@@ -23,14 +23,14 @@ sudo -u postgres /usr/pgsql-9.4/bin/psql -c "ALTER USER fusionpbx WITH PASSWORD 
 sudo -u postgres /usr/pgsql-9.4/bin/psql -c "ALTER USER freeswitch WITH PASSWORD '$database_password';"
 
 #add the config.php
-mkdir -p /etc/fusionpbx
-chown -R freeswitch:daemon /etc/fusionpbx
-cp fusionpbx/config.php /etc/fusionpbx
-sed -i /etc/fusionpbx/config.php -e s:'{database_username}:fusionpbx:'
-sed -i /etc/fusionpbx/config.php -e s:"{database_password}:$database_password:"
+mkdir -p /etc/nocroompbx
+chown -R freeswitch:daemon /etc/nocroompbx
+cp fusionpbx/config.php /etc/nocroompbx
+sed -i /etc/nocroompbx/config.php -e s:'{database_username}:nocroompbx:'
+sed -i /etc/nocroompbx/config.php -e s:"{database_password}:$database_password:"
 
 #add the database schema
-cd /var/www/fusionpbx && php /var/www/fusionpbx/core/upgrade/upgrade_schema.php > /dev/null 2>&1
+cd /var/www/nocroompbx && php /var/www/nocroompbx/core/upgrade/upgrade_schema.php > /dev/null 2>&1
 
 #get the server hostname
 #domain_name=$(hostname -f)
@@ -39,17 +39,17 @@ cd /var/www/fusionpbx && php /var/www/fusionpbx/core/upgrade/upgrade_schema.php 
 domain_name=$(hostname -I | cut -d ' ' -f1)
 
 #get a domain_uuid
-domain_uuid=$(php /var/www/fusionpbx/resources/uuid.php);
+domain_uuid=$(php /var/www/nocroompbx/resources/uuid.php);
 
 #add the domain name
 psql --host=$database_host --port=$database_port --username=$database_username -c "insert into v_domains (domain_uuid, domain_name, domain_enabled) values('$domain_uuid', '$domain_name', 'true');"
 
 #app defaults
-cd /var/www/fusionpbx && php /var/www/fusionpbx/core/upgrade/upgrade_domains.php
+cd /var/www/nocroompbx && php /var/www/nocroompbx/core/upgrade/upgrade_domains.php
 
 #add the user
-user_uuid=$(/usr/bin/php /var/www/fusionpbx/resources/uuid.php);
-user_salt=$(/usr/bin/php /var/www/fusionpbx/resources/uuid.php);
+user_uuid=$(/usr/bin/php /var/www/nocroompbx/resources/uuid.php);
+user_salt=$(/usr/bin/php /var/www/nocroompbx/resources/uuid.php);
 user_name=$system_username
 if [ .$system_password = .'random' ]; then
 	user_password=$(dd if=/dev/urandom bs=1 count=12 2>/dev/null | base64 | sed 's/[=\+//]//g')
@@ -64,7 +64,7 @@ group_uuid=$(psql --host=$database_host --port=$database_port --username=$databa
 group_uuid=$(echo $group_uuid | sed 's/^[[:blank:]]*//;s/[[:blank:]]*$//')
 
 #add the user to the group
-group_user_uuid=$(/usr/bin/php /var/www/fusionpbx/resources/uuid.php);
+group_user_uuid=$(/usr/bin/php /var/www/nocroompbx/resources/uuid.php);
 group_name=superadmin
 psql --host=$database_host --port=$database_port --username=$database_username -c "insert into v_group_users (group_user_uuid, domain_uuid, group_name, group_uuid, user_uuid) values('$group_user_uuid', '$domain_uuid', '$group_name', '$group_uuid', '$user_uuid');"
 
@@ -77,7 +77,7 @@ sed -ie 's/user = apache/user = freeswitch/g' /etc/php-fpm.d/www.conf
 chown -R freeswitch:daemon /var/lib/php/session
 
 #update the permissions
-chown -R freeswitch.daemon /etc/freeswitch /var/lib/freeswitch /var/log/freeswitch /usr/share/freeswitch /var/www/fusionpbx
+chown -R freeswitch.daemon /etc/freeswitch /var/lib/freeswitch /var/log/freeswitch /usr/share/freeswitch /var/www/nocroompbx
 find /etc/freeswitch -type d -exec chmod 770 {} \;
 find /var/lib/freeswitch -type d -exec chmod 770 {} \;
 find /var/log/freeswitch -type d -exec chmod 770 {} \;
@@ -97,7 +97,7 @@ sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_user}:$xml_cdr
 sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_pass}:$xml_cdr_password:"
 
 #app defaults
-cd /var/www/fusionpbx && php /var/www/fusionpbx/core/upgrade/upgrade_domains.php
+cd /var/www/fusionpbx && php /var/www/nocroompbx/core/upgrade/upgrade_domains.php
 
 #restart services
 systemctl daemon-reload
@@ -126,21 +126,6 @@ echo "   The domain name in the browser is used by default as part of the authen
 echo "   If you need to login to a different domain then use username@domain."
 echo "      username: $user_name@$domain_name";
 echo ""
-echo "   Official FusionPBX Training"
-echo "      Fastest way to learn FusionPBX. For more information https://www.fusionpbx.com."
-echo "      Available online and in person. Includes documentation and recording."
-echo ""
-echo "      Location:               Online and Houston, Texas"
-echo "      Admin Training:          12-14 November 2018 (3 Days)"
-echo "      Advanced Training:       15-16 November 2018 (2 Days)"
-echo "      Continuing Education:    29 November 2018 (1 Day)"
-echo "      Timezone:               https://www.timeanddate.com/weather/usa/houston"
-echo ""
-echo "   Additional information."
-echo "      https://fusionpbx.com/training.php"
-echo "      https://fusionpbx.com/support.php"
-echo "      https://www.fusionpbx.com"
-echo "      http://docs.fusionpbx.com"
 echo ""
 warning "*------------------------------------------*"
 warning "* NOTE: Please save the above information. *"
