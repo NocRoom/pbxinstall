@@ -81,10 +81,10 @@ bantime  = 86400
 #enabled  = true
 #port     = 80,443
 #protocol = tcp
-#filter   = fusionpbx
+#filter   = nocroompbx
 #logpath  = /var/log/auth.log
-#action   = iptables-multiport[name=fusionpbx, port="http,https", protocol=tcp]
-#          sendmail-whois[name=fusionpbx, dest=root, sender=fail2ban@example.org] #no smtp server installed
+#action   = iptables-multiport[name=nocroompbx, port="http,https", protocol=tcp]
+#          sendmail-whois[name=nocroompbx, dest=root, sender=fail2ban@example.org] #no smtp server installed
 #maxretry = 10
 #findtime = 600
 #bantime  = 600
