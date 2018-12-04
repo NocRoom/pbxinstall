@@ -18,8 +18,8 @@ mkdir -p /etc/nginx/sites-available
 mkdir -p /etc/nginx/sites-enabled
 
 #enable fusionpbx nginx config
-cp ./nginx/fusionpbx /etc/nginx/sites-available/fusionpbx.conf
-ln -s /etc/nginx/sites-available/fusionpbx.conf /etc/nginx/sites-enabled/fusionpbx.conf
+cp ./nginx/nocroompbx /etc/nginx/sites-available/nocroompbx.conf
+ln -s /etc/nginx/sites-available/nocroompbx.conf /etc/nginx/sites-enabled/nocroompbx.conf
 awk '/server *{/ {c=1 ; next} c && /{/{c++} c && /}/{c--;next} !c' /etc/nginx/nginx.conf > /etc/nginx/nginx.tmp && mv -f /etc/nginx/nginx.tmp /etc/nginx/nginx.conf && rm -f /etc/nginx/nginx.tmp
 sed -i '/include \/etc\/nginx\/conf\.d\/\*\.conf\;/a \    include \/etc\/nginx\/sites-enabled\/\*\.conf\;' /etc/nginx/nginx.conf
 
