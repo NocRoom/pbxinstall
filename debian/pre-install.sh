@@ -7,7 +7,7 @@ apt-get update && apt-get upgrade -y --force-yes
 apt-get install -y --force-yes git lsb-release
 
 #get the install script
-cd /usr/src && git clone https://github.com/fusionpbx/fusionpbx-install.sh.git
+cd /usr/src && git clone git@github.com:NocRoom/NocRoomPBX.git
 
 #change the working directory
-cd /usr/src/fusionpbx-install.sh/debian
+cd /usr/src/nocroompbx-install.sh/debian
