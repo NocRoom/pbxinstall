@@ -9,7 +9,7 @@ server {
 	client_body_buffer_size 128k;
 
 	location / {
-		root /var/www/fusionpbx;
+		root /var/www/nocroompbx;
 		index index.php;
 	}
 
@@ -18,7 +18,7 @@ server {
 		#fastcgi_pass 127.0.0.1:9000;
 		fastcgi_index index.php;
 		include fastcgi_params;
-		fastcgi_param   SCRIPT_FILENAME /var/www/fusionpbx$fastcgi_script_name;
+		fastcgi_param   SCRIPT_FILENAME /var/www/nocroompbx$fastcgi_script_name;
 	}
 
 	# Disable viewing .htaccess & .htpassword & .db
@@ -35,7 +35,7 @@ server {
 
 server {
 	listen 80;
-	server_name fusionpbx;
+	server_name nocroompbx;
 	if ($uri !~* ^.*(provision|xml_cdr).*$) {
 		rewrite ^(.*) https://$host$1 permanent;
 		break;
@@ -97,7 +97,7 @@ server {
 	client_body_buffer_size 128k;
 
 	location / {
-		root /var/www/fusionpbx;
+		root /var/www/nocroompbx;
 		index index.php;
 	}
 
@@ -106,7 +106,7 @@ server {
 		#fastcgi_pass 127.0.0.1:9000;
 		fastcgi_index index.php;
 		include fastcgi_params;
-		fastcgi_param   SCRIPT_FILENAME /var/www/fusionpbx$fastcgi_script_name;
+		fastcgi_param   SCRIPT_FILENAME /var/www/nocroompbx$fastcgi_script_name;
 	}
 
 	# Disable viewing .htaccess & .htpassword & .db
@@ -123,7 +123,7 @@ server {
 
 server {
 	listen 443;
-	server_name fusionpbx;
+	server_name nocroompbx;
 	ssl                     on;
 	ssl_certificate         /etc/ssl/certs/nginx.crt;
 	ssl_certificate_key     /etc/ssl/private/nginx.key;
@@ -186,7 +186,7 @@ server {
 	client_body_buffer_size 128k;
 
 	location / {
-		root /var/www/fusionpbx;
+		root /var/www/nocroompbx;
 		index index.php;
 	}
 
@@ -195,7 +195,7 @@ server {
 		#fastcgi_pass 127.0.0.1:9000;
 		fastcgi_index index.php;
 		include fastcgi_params;
-		fastcgi_param   SCRIPT_FILENAME /var/www/fusionpbx$fastcgi_script_name;
+		fastcgi_param   SCRIPT_FILENAME /var/www/nocroompbx$fastcgi_script_name;
 	}
 
 	# Allow the upgrade routines to run longer than normal
@@ -204,7 +204,7 @@ server {
 		#fastcgi_pass 127.0.0.1:9000;
 		fastcgi_index index.php;
 		include fastcgi_params;
-		fastcgi_param   SCRIPT_FILENAME /var/www/fusionpbx$fastcgi_script_name;
+		fastcgi_param   SCRIPT_FILENAME /var/www/nocroompbx$fastcgi_script_name;
 		fastcgi_read_timeout 15m;
 	}
 
