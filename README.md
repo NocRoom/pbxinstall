@@ -9,7 +9,7 @@ Debian 9 is the preferred operating system by the FreeSWITCH developers. It supp
 
 ```sh
 wget -O - https://raw.githubusercontent.com/nocroom/pbxinstall/master/debian/pre-install.sh | sh;
-cd /usr/src/NocRoomPBX/debian && ./install.sh
+cd /usr/src/pbxinstall/debian && ./install.sh
 ```
 
 ### CentOS
@@ -17,5 +17,5 @@ CentOS operating system is a requirement for some companies. Don't expect video 
 
 ```sh
 wget -O - https://raw.githubusercontent.com/nocroom/pbxinstall/master/centos/pre-install.sh | sh
-cd /usr/src/NocRoomPBX/centos && ./install.sh
+cd /usr/src/pbxinstall/centos && ./install.sh
 ```
