@@ -2,6 +2,7 @@
 
 # CentOS 7 install
 chmod 777 ./resources/*
+chmod 777 ./resources/switch/*
 
 #move to script directory so all relative paths work
 cd "$(dirname "$0")"
