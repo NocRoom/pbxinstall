@@ -1,6 +1,7 @@
 #!/bin/sh
 
 # CentOS 7 install
+chmod 777 ./resources/*
 
 #move to script directory so all relative paths work
 cd "$(dirname "$0")"
