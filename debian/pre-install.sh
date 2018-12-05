@@ -10,4 +10,4 @@ apt-get install -y --force-yes git lsb-release
 cd /usr/src && git clone https://github.com/NocRoom/NocRoomPBX.git
 
 #change the working directory
-cd /usr/src/nocroompbx-install.sh/debian
+cd /usr/src/nocroompbx/debian
