@@ -25,7 +25,7 @@ sudo -u postgres /usr/pgsql-9.4/bin/psql -c "ALTER USER freeswitch WITH PASSWORD
 #add the config.php
 mkdir -p /etc/nocroompbx
 chown -R freeswitch:daemon /etc/nocroompbx
-cp fusionpbx/config.php /etc/nocroompbx
+cp nocroompbx/config.php /etc/nocroompbx
 sed -i /etc/nocroompbx/config.php -e s:'{database_username}:nocroompbx:'
 sed -i /etc/nocroompbx/config.php -e s:"{database_password}:$database_password:"
 
@@ -97,7 +97,7 @@ sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_user}:$xml_cdr
 sed -i /etc/freeswitch/autoload_configs/xml_cdr.conf.xml -e s:"{v_pass}:$xml_cdr_password:"
 
 #app defaults
-cd /var/www/fusionpbx && php /var/www/nocroompbx/core/upgrade/upgrade_domains.php
+cd /var/www/nocroompbx && php /var/www/nocroompbx/core/upgrade/upgrade_domains.php
 
 #restart services
 systemctl daemon-reload
