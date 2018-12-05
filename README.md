@@ -8,7 +8,7 @@ A quick install guide & scripts for installing NocRoomPBX. It is recommended to 
 Debian 9 is the preferred operating system by the FreeSWITCH developers. It supports the latest video dependencies and should be used if you want to do video mixing. Download Debian 9 Stretch at https://cdimage.debian.org/cdimage/release/current/
 
 ```sh
-wget -O - https://raw.githubusercontent.com/nocroom/pbxinstall/master/debian/pre-install.sh | sh
+coming soon
 ```
 
 ### CentOS
