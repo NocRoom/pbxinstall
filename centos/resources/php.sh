@@ -32,6 +32,7 @@ mkdir -p /var/lib/php/session
 chmod -Rf 770 /var/lib/php/session
 
 #update the permissions
+mkdir /var/www/nocroompbx
 find /var/www/nocroompbx -type d -exec chmod 770 {} \;
 find /var/www/nocroompbx -type f -exec chmod 664 {} \;
 
