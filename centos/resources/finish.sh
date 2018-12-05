@@ -19,7 +19,7 @@ fi
 export PGPASSWORD=$database_password
 
 #update the database password
-sudo -u postgres /usr/pgsql-9.4/bin/psql -c "ALTER USER fusionpbx WITH PASSWORD '$database_password';"
+sudo -u postgres /usr/pgsql-9.4/bin/psql -c "ALTER USER nocroompbx WITH PASSWORD '$database_password';"
 sudo -u postgres /usr/pgsql-9.4/bin/psql -c "ALTER USER freeswitch WITH PASSWORD '$database_password';"
 
 #add the config.php
