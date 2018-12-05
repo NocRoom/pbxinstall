@@ -32,6 +32,7 @@ else
 fi
 
 #get the source code
+mkdir /var/www/nocroompbx
 git clone $BRANCH https://github.com/NocRoom/NocRoomPBX.git /var/www/nocroompbx
 
 #send a message
